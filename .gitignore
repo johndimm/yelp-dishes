@@ -1,0 +1,7 @@
+data
+.venv
+.specstory
+venv
+node_modules
+.env
+
