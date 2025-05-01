@@ -2,8 +2,8 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import DishImage from "../components/DishImage";
 import DishSearch from "../components/DishSearch";
 import { useRouter } from "next/router";
-
 import Link from "next/link";
+import { Typography } from "@mui/material";
 
 function DishCard({ dish, onPhotoError }) {
   const [photoUrls, setPhotoUrls] = useState([dish.photo_url]);
@@ -20,7 +20,6 @@ function DishCard({ dish, onPhotoError }) {
         }
       })
       .catch(() => {});
-    // eslint-disable-next-line
   }, [dish.dish_id]);
 
   return (
@@ -37,24 +36,23 @@ function DishCard({ dish, onPhotoError }) {
           }}
         >
           <DishImage urls={photoUrls} captions={captions} alt={dish.noun_phrase} onPhotoError={() => onPhotoError(dish.dish_id, dish.photo_url)} business_name={dish.business_name} showRestaurantInlineName={true} />
-          <h2 style={{ fontSize: 20, margin: "16px 0 4px" }}>{dish.noun_phrase}</h2>
+          <Typography variant="h6" sx={{ mt: 2, mb: 0 }}>
+            {dish.noun_phrase}
+          </Typography>
           {dish.business_name && (
-            <div style={{ color: '#888', fontSize: 15, fontWeight: 500, marginBottom: 8, textAlign: 'center' }}>
+            <Typography variant="body2" sx={{ color: '#888', fontWeight: 500, mb: 1, textAlign: 'center' }}>
               {dish.business_name}
-            </div>
+            </Typography>
           )}
-
         </div>
       </a>
     </Link>
   );
 }
 
-
 export default function Home() {
   const router = useRouter();
   const [dishes, setDishes] = useState([]);
-  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [pageOffset, setPageOffset] = useState(0);
@@ -144,7 +142,6 @@ export default function Home() {
             onPhotoError={() => setDishes((prev) => prev.filter((d) => d.dish_id !== dish.dish_id))}
           />
         ))}
-
       </div>
       {loading && <p>Loading...</p>}
       {!hasMore && !loading && <p style={{ color: '#888', marginTop: 32 }}>No more dishes to load.</p>}

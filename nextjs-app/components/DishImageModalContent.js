@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { Box, IconButton, Typography } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 function FadeImage({ src, alt, onError }) {
   const [loaded, setLoaded] = useState(false);
@@ -26,7 +29,6 @@ export default function DishImageModalContent({ urls, captions = [], alt, onPhot
   const [index, setIndex] = useState(startIndex);
   const [paused, setPaused] = useState(false);
 
-  // Reset index if startIndex changes (modal opened anew)
   useEffect(() => {
     setIndex(startIndex);
     setPaused(false);
@@ -47,7 +49,7 @@ export default function DishImageModalContent({ urls, captions = [], alt, onPhot
   const prev = e => {
     e.stopPropagation();
     setIndex(i => (i - 1 + urls.length) % urls.length);
-    setPaused(false); // Resume slideshow after manual nav
+    setPaused(false);
   };
   const next = e => {
     e.stopPropagation();
@@ -56,15 +58,17 @@ export default function DishImageModalContent({ urls, captions = [], alt, onPhot
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 400, minHeight: 400 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: 400, minHeight: 400 }}>
       {business_name && (
-        <div style={{ fontSize: 18, fontWeight: 500, color: '#fff', textAlign: 'center', marginBottom: 8, opacity: 0.85, letterSpacing: 0.1 }}>
+        <Typography sx={{ fontSize: 18, fontWeight: 500, color: '#fff', textAlign: 'center', mb: 1, opacity: 0.85, letterSpacing: 0.1 }}>
           {business_name}
-        </div>
+        </Typography>
       )}
-      <div style={{ fontSize: 22, fontWeight: 600, marginBottom: 18, color: '#fff', textAlign: 'center', letterSpacing: 0.2 }}>{alt}</div>
-      <div
-        style={{ position: 'relative', width: 400, height: 400, borderRadius: 8, overflow: 'hidden', background: '#000' }}
+      <Typography variant="h3" component="h1" gutterBottom>
+        {alt}
+      </Typography>
+      <Box
+        sx={{ position: 'relative', width: 400, height: 400, borderRadius: 2, overflow: 'hidden', background: '#000' }}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         tabIndex={0}
@@ -79,21 +83,36 @@ export default function DishImageModalContent({ urls, captions = [], alt, onPhot
         />
         {urls.length > 1 && (
           <>
-            <button onClick={prev} style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: 36, height: 36, cursor: 'pointer', fontSize: 22, fontWeight: 'bold', zIndex: 2 }}>&lt;</button>
-            <button onClick={next} style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'rgba(255,255,255,0.9)', border: 'none', borderRadius: '50%', width: 36, height: 36, cursor: 'pointer', fontSize: 22, fontWeight: 'bold', zIndex: 2 }}>&gt;</button>
+            <IconButton onClick={prev} sx={{
+              position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)',
+              bgcolor: 'rgba(255,255,255,0.9)', width: 36, height: 36, zIndex: 2
+            }} size="large">
+              <ChevronLeftIcon />
+            </IconButton>
+            <IconButton onClick={next} sx={{
+              position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)',
+              bgcolor: 'rgba(255,255,255,0.9)', width: 36, height: 36, zIndex: 2
+            }} size="large">
+              <ChevronRightIcon />
+            </IconButton>
           </>
         )}
         {urls.length > 1 && (
-          <div style={{ position: 'absolute', bottom: 12, left: 0, right: 0, textAlign: 'center', color: '#222', fontWeight: 'bold', textShadow: '0 0 4px #fff', fontSize: 15 }}>
+          <Typography sx={{
+            position: 'absolute', bottom: 12, left: 0, right: 0, textAlign: 'center',
+            color: '#222', fontWeight: 'bold', textShadow: '0 0 4px #fff', fontSize: 15
+          }}>
             {index + 1} / {urls.length}
-          </div>
+          </Typography>
         )}
-      </div>
+      </Box>
       {captions && captions[index] && (
-        <div style={{ fontSize: 16, fontStyle: 'italic', color: '#eee', marginTop: 18, minHeight: 22, textAlign: 'center', maxWidth: 380, textShadow: '0 2px 8px #000' }}>
+        <Typography sx={{
+          fontSize: 16, fontStyle: 'italic', color: '#eee', mt: 2, minHeight: 22, textAlign: 'center', maxWidth: 380, textShadow: '0 2px 8px #000'
+        }}>
           {captions[index]}
-        </div>
+        </Typography>
       )}
-    </div>
+    </Box>
   );
 }
