@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     // Fetch all dishes served by this business, with all photos/captions
     const result = await pool.query(
       `SELECT d.id AS dish_id, d.noun_phrase, p.yelp_photo_id, p.caption, 
-              'http://localhost/projects/yelp-challenge/data/Yelp Photos/yelp_photos/photos/' || p.yelp_photo_id || '.jpg' AS photo_url
+              'https://www.johndimm.com/yelp_photos_2025/photos/' || p.yelp_photo_id || '.jpg' AS photo_url
        FROM dishes d
        JOIN dish_photo dp ON d.id = dp.dish_int_id
        JOIN photo p ON dp.photo_int_id = p.id

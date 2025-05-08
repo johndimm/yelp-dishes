@@ -22,7 +22,7 @@ BEGIN
         d.num_multi_embed::integer,
         (
             SELECT
-                'http://localhost/projects/yelp-dishes/data/Yelp Photos/yelp_photos/photos/' || p.yelp_photo_id || '.jpg'
+                'https://www.johndimm.com/yelp_photos_2025/photos/' || p.yelp_photo_id || '.jpg'
             FROM dish_photo dp
             JOIN photo p ON dp.photo_int_id = p.id
             WHERE dp.dish_int_id = d.id
@@ -52,7 +52,7 @@ BEGIN
     SELECT
         b.id::bigint AS business_id,
         b.name AS business_name,
-        'http://localhost/projects/yelp-dishes/data/Yelp Photos/yelp_photos/photos/' || p.yelp_photo_id || '.jpg' AS photo_url,
+        'https://www.johndimm.com/yelp_photos_2025/photos/' || p.yelp_photo_id || '.jpg' AS photo_url,
         c.caption
     FROM dish_business db
     JOIN business b ON b.id = db.business_int_id
@@ -112,7 +112,7 @@ BEGIN
         b.categories,
         d.id AS dish_id,
         d.noun_phrase,
-        'http://localhost/projects/yelp-dishes/data/Yelp Photos/yelp_photos/photos/' || p.yelp_photo_id || '.jpg' AS photo_url,
+        'https://www.johndimm.com/yelp_photos_2025/photos/' || p.yelp_photo_id || '.jpg' AS photo_url,
         c.caption
     FROM (
         SELECT

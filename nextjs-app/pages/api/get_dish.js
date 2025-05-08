@@ -21,7 +21,7 @@ export default async function handler(req, res) {
           // do nothing
         } else {
           // If it's just an ID, prepend the johndimm.com URL
-          row.photo_url = `https://www.johndimm.com/yelp_photos/photos/${row.photo_url}.jpg`;
+          row.photo_url = `https://www.johndimm.com/yelp_photos_2025/photos/${row.photo_url}.jpg`;
         }
       }
       return row;

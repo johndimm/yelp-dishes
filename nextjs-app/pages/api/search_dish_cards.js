@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       // Single word: match as a whole word anywhere in the noun_phrase
       sql = `
         SELECT DISTINCT ON (d.id) d.id AS dish_id, d.noun_phrase, b.name AS business_name,
-          'http://localhost/projects/yelp-challenge/data/Yelp Photos/yelp_photos/photos/' || p.yelp_photo_id || '.jpg' AS photo_url
+          'https://www.johndimm.com/yelp_photos_2025/photos/' || p.yelp_photo_id || '.jpg' AS photo_url
         FROM dishes d
         JOIN dish_photo dp ON d.id = dp.dish_int_id
         JOIN photo p ON dp.photo_int_id = p.id
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       // Multi-word: match the exact phrase
       sql = `
         SELECT DISTINCT ON (d.id) d.id AS dish_id, d.noun_phrase, b.name AS business_name,
-          'http://localhost/projects/yelp-challenge/data/Yelp Photos/yelp_photos/photos/' || p.yelp_photo_id || '.jpg' AS photo_url
+          'https://www.johndimm.com/yelp_photos_2025/photos/' || p.yelp_photo_id || '.jpg' AS photo_url
         FROM dishes d
         JOIN dish_photo dp ON d.id = dp.dish_int_id
         JOIN photo p ON dp.photo_int_id = p.id
